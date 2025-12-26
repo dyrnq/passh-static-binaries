@@ -1,4 +1,4 @@
-FROM alpine
+FROM alpine as build
 RUN apk add --no-cache git clang musl-dev binutils curl
 RUN curl -O https://raw.githubusercontent.com/clarkwang/passh/refs/heads/master/passh.c
 RUN \
@@ -12,3 +12,7 @@ passh.o \
 -strip-all \
 -static -L/usr/lib -L/lib -lc
 RUN cp passh /usr/bin/passh
+
+FROM alpine
+
+COPY --from=build /usr/bin/passh /usr/bin
