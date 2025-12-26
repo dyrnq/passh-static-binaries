@@ -6,7 +6,7 @@ version="${version:-6.2.19}";
 push="${push:-false}"
 repo="${repo:-dyrnq}"
 image_name="${image_name:-redis-static-binaries}"
-platforms="${platforms:-linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64/v8,linux/ppc64le,linux/riscv64,linux/s390x}"
+platforms="${platforms:-linux/amd64,linux/arm64/v8,linux/ppc64le,linux/riscv64,linux/s390x}"
 curl_opts="${curl_opts:-}"
 docker_file=${docker_file:-./Dockerfile}
 while [ $# -gt 0 ]; do
