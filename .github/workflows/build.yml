@@ -51,7 +51,7 @@ jobs:
             # ver="${{ steps.get_version.outputs.VERSION }}"
             ver="master"
             echo "${ver}"
-            ./buildx.sh --version ${ver} --push false --repo ${{ secrets.DOCKER_USERNAME }} --image-name passh-static-binaries --docker-file alpine/Dockerfile
+            ./buildx.sh --version ${ver} --push false --repo ${{ secrets.DOCKER_USERNAME }} --image-name passh-static-binaries --docker-file alpine/Dockerfile --platforms "linux/amd64"
       -
         name: Login to DockerHub
         uses: docker/login-action@v3
@@ -65,7 +65,7 @@ jobs:
             # ver="${{ steps.get_version.outputs.VERSION }}"
             ver="master"
             echo "${ver}"
-            ./buildx.sh --version ${ver} --push true --repo ${{ secrets.DOCKER_USERNAME }} --image-name passh-static-binaries --docker-file --docker-file alpine/Dockerfile
+            ./buildx.sh --version ${ver} --push true --repo ${{ secrets.DOCKER_USERNAME }} --image-name passh-static-binaries --docker-file --docker-file alpine/Dockerfile --platforms "linux/amd64"
 
 
       - name: docker logout
