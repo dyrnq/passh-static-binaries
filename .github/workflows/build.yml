@@ -5,8 +5,8 @@ on:
   push:
     branches-ignore:
       - main
-    tags-ignore:
-      - main
+    # tags-ignore:
+    #   - main
     tags:
       - "v*.*.*"
 
