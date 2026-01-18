@@ -2,7 +2,7 @@
 set -Eeo pipefail
 
 base_image="${base_image:-}"
-version="${version:-6.2.19}";
+version="${version:-v1.0.2}";
 push="${push:-false}"
 repo="${repo:-dyrnq}"
 image_name="${image_name:-redis-static-binaries}"
@@ -58,7 +58,7 @@ latest_tag=" --tag $repo/$image_name:$version"
 docker buildx build \
 --platform ${platforms} \
 --output "type=image,push=${push}" \
---build-arg REDIS_VERSION=${version} \
+--build-arg version=${version} \
 --file ${docker_file} . \
 ${latest_tag}
 

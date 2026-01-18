@@ -8,7 +8,7 @@ on:
     tags-ignore:
       - main
     tags:
-      # - "v*.*.*"
+      - "v*.*.*"
 
 jobs:
   build:
@@ -19,14 +19,14 @@ jobs:
         name: Checkout
         uses: actions/checkout@v4
 
-      # - name: Get version
-      #   id: get_version
-      #   run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
+      - name: Get version
+        id: get_version
+        run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
 
-      # - name: Test version
-      #   run: |
-      #     echo ${{ steps.get_version.outputs.VERSION }}
-      #     echo ${{ github.ref }}
+      - name: Test version
+        run: |
+          echo ${{ steps.get_version.outputs.VERSION }}
+          echo ${{ github.ref }}
 
       -
         name: Set up QEMU
@@ -48,8 +48,7 @@ jobs:
 
       - name: Build dockerfile (with no push)
         run: |
-            # ver="${{ steps.get_version.outputs.VERSION }}"
-            ver="master"
+            ver="${{ steps.get_version.outputs.VERSION }}"
             echo "${ver}"
             ./buildx.sh --version ${ver} --push false --repo ${{ secrets.DOCKER_USERNAME }} --image-name passh-static-binaries --docker-file alpine/Dockerfile --platforms "linux/amd64"
       -
@@ -62,8 +61,7 @@ jobs:
       - name: Build dockerfile (with push)
         run: |
             echo "Build dockerfile (with push)"
-            # ver="${{ steps.get_version.outputs.VERSION }}"
-            ver="master"
+            ver="${{ steps.get_version.outputs.VERSION }}"
             echo "${ver}"
             ./buildx.sh --version ${ver} --push true --repo ${{ secrets.DOCKER_USERNAME }} --image-name passh-static-binaries --docker-file alpine/Dockerfile --platforms "linux/amd64"
 

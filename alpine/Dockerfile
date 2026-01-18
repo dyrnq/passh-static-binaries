@@ -1,6 +1,7 @@
 FROM alpine as build
+ARG version=v1.0.2
 RUN apk add --no-cache git clang musl-dev binutils curl
-RUN curl -O https://raw.githubusercontent.com/clarkwang/passh/refs/heads/master/passh.c
+RUN curl -O https://raw.githubusercontent.com/clarkwang/passh/refs/tags/${version}/passh.c
 RUN \
 clang --verbose -std=c11 passh.c -c -o passh.o
 RUN \
