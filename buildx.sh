@@ -53,7 +53,9 @@ done
 
 latest_tag=" --tag $repo/$image_name:$version"
 
-
+if [ "$version" = "master" ]; then
+    sed -i "s@^RUN curl.*@RUN curl -O https://raw.githubusercontent.com/clarkwang/passh/refs/heads/master/passh.c@g" ${docker_file}
+fi
 
 docker buildx build \
 --platform ${platforms} \
