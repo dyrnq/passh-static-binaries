@@ -11,7 +11,7 @@ passh.o \
 /usr/lib/crti.o \
 /usr/lib/crtn.o \
 -strip-all \
--static -L/usr/lib -L/lib -lc
+-static -L/usr/lib -L/lib -lc -lm
 RUN cp passh /usr/bin/passh
 
 FROM alpine

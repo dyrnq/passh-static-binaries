@@ -42,7 +42,7 @@ jobs:
       - name: Build dockerfile (with no push)
         run: |
             ver="master"
-            ./buildx.sh --version ${ver} --push false --repo ${{ secrets.DOCKER_USERNAME }} --image-name passh-static-binaries --docker-file alpine/Dockerfile --platforms "linux/amd64"
+            ./buildx.sh --version ${ver} --push false --repo ${{ secrets.DOCKER_USERNAME }} --image-name passh-static-binaries --docker-file alpine/Dockerfile --platforms "linux/amd64,linux/arm64/v8"
       -
         name: Login to DockerHub
         uses: docker/login-action@v3
@@ -54,7 +54,7 @@ jobs:
         run: |
             echo "Build dockerfile (with push)"
             ver="master"
-            ./buildx.sh --version ${ver} --push true --repo ${{ secrets.DOCKER_USERNAME }} --image-name passh-static-binaries --docker-file alpine/Dockerfile --platforms "linux/amd64"
+            ./buildx.sh --version ${ver} --push true --repo ${{ secrets.DOCKER_USERNAME }} --image-name passh-static-binaries --docker-file alpine/Dockerfile --platforms "linux/amd64,linux/arm64/v8"
 
 
       - name: docker logout
