@@ -74,9 +74,12 @@ jobs:
         shell: bash
         run: |
           ver="${{ steps.get_version.outputs.VERSION }}"
-          docker run --pull always --name passh-static-binaries -d dyrnq/passh-static-binaries:${ver} sh "tail -f /dev/null"
-          docker cp passh-static-binaries:/usr/bin/passh .
-          docker rm -f passh-static-binaries
+          for p in "linux/arm64" "linux/amd64"; do
+            docker run --pull always --platform ${p} --name passh-static-binaries -d dyrnq/passh-static-binaries:${ver} sh "tail -f /dev/null"
+            docker cp passh-static-binaries:/usr/bin/passh .
+            cp ./passh ./passh-${p//\//-}
+            docker rm -f passh-static-binaries
+          done
           ls -l ./
       - name: Release
         uses: softprops/action-gh-release@v2
@@ -86,3 +89,5 @@ jobs:
           body: "Release passh ${{ steps.get_version.outputs.VERSION }}.  \n source: https://github.com/clarkwang/passh/releases/tag/${{ steps.get_version.outputs.VERSION }}"
           files: |
             ./passh
+            ./passh-linux-amd64
+            ./passh-linux-arm64
